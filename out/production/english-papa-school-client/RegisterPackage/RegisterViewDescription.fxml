@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="547.0" layoutY="55.0" prefHeight="77.0" prefWidth="214.0" text="Регистрация">
@@ -36,7 +35,7 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <ImageView fitHeight="88.0" fitWidth="323.0" layoutX="479.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="165.0" fitWidth="214.0" layoutX="569.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../Assets/english-papa-logo.png" />
             </image>

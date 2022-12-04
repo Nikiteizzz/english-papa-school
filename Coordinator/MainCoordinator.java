@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class MainCoordinator extends Application {
     User user;
     NetworkManager networkManager;
@@ -25,6 +27,7 @@ public class MainCoordinator extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("LoginingPackage/LoginViewDescription.fxml"));
         fxmlLoader.setController(new LoginController(networkManager));
         Scene scene = new Scene(fxmlLoader.load());
+        networkManager.startServer();
         stage.setTitle("Авторизация");
         stage.setResizable(false);
         stage.setScene(scene);
