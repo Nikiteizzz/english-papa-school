@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <PasswordField fx:id="passwordField" layoutX="600.0" layoutY="350.0" prefHeight="50.0" prefWidth="250.0" />
+      <Label layoutX="508.0" layoutY="17.0" text="Настройки аккаунта">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="45.0" layoutY="36.0" mnemonicParsing="false" onAction="#goBack" prefHeight="50.0" prefWidth="38.0" style="-fx-background-color: light; -fx-border-color: black; -fx-border-radius: 80;" text="&lt;">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Button>
+      <Label layoutX="119.0" layoutY="262.0" text="Имя">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameTextField" layoutX="160.0" layoutY="250.0" prefHeight="50.0" prefWidth="250.0">
+         <font>
+            <Font size="17.0" />
+         </font></TextField>
+      <TextField fx:id="surnameTextField" layoutX="160.0" layoutY="350.0" prefHeight="50.0" prefWidth="250.0">
+         <font>
+            <Font size="17.0" />
+         </font></TextField>
+      <Label layoutX="76.0" layoutY="362.0" text="Фамилия">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="statusTextField" layoutX="160.0" layoutY="450.0" prefHeight="50.0" prefWidth="250.0">
+         <font>
+            <Font size="17.0" />
+         </font></TextField>
+      <Label layoutX="96.0" layoutY="462.0" text="Статус">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="349.0" fitWidth="326.0" layoutX="910.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/english-papa-logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="541.0" layoutY="263.0" text="Логин">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="loginTextField" editable="false" layoutX="600.0" layoutY="250.0" prefHeight="50.0" prefWidth="250.0">
+         <font>
+            <Font size="17.0" />
+         </font></TextField>
+      <Label layoutX="530.0" layoutY="363.0" text="Пароль">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveButton" layoutX="600.0" layoutY="450.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="50.0" prefWidth="250.0" text="Сохранить изменения">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
