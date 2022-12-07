@@ -15,17 +15,17 @@
                 <Font size="36.0" />
             </font>
         </Label>
-        <TextField fx:id="loginTextField" layoutX="517.0" layoutY="342.0" prefHeight="50.0" prefWidth="275.0" promptText="Логин">
+        <TextField fx:id="loginTextField" layoutX="300.0" layoutY="330.0" prefHeight="50.0" prefWidth="275.0" promptText="Логин">
             <font>
                 <Font size="16.0" />
             </font>
         </TextField>
-        <TextField fx:id="passwordTextField" layoutX="517.0" layoutY="419.0" prefHeight="50.0" prefWidth="275.0" promptText="Пароль">
+        <TextField fx:id="passwordTextField" layoutX="300.0" layoutY="400.0" prefHeight="50.0" prefWidth="275.0" promptText="Пароль">
             <font>
                 <Font size="16.0" />
             </font>
         </TextField>
-        <TextField fx:id="inviteCodeTextField" layoutX="516.0" layoutY="493.0" prefHeight="50.0" prefWidth="275.0" promptText="Пригласительный код">
+        <TextField fx:id="inviteCodeTextField" layoutX="300.0" layoutY="470.0" prefHeight="50.0" prefWidth="275.0" promptText="Пригласительный код">
             <font>
                 <Font size="16.0" />
             </font>
@@ -45,5 +45,20 @@
                 <Font size="30.0" />
             </font>
         </Button>
+      <TextField fx:id="nameTextField" layoutX="720.0" layoutY="330.0" prefHeight="50.0" prefWidth="275.0" promptText="Имя">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="surnameTextField" layoutX="720.0" layoutY="400.0" prefHeight="50.0" prefWidth="275.0" promptText="Фамилия">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="statusTextField" layoutX="720.0" layoutY="470.0" prefHeight="50.0" prefWidth="275.0" promptText="Роль">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
     </children>
 </AnchorPane>

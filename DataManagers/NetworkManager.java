@@ -114,4 +114,16 @@ public class NetworkManager {
             return false;
         }
     }
+
+    public User requestRegistration(User user, String inviteCode) throws IOException {
+        String request = "registration@" + user.toJsonObject().toJSONString() + "@" + inviteCode;
+        serverOutputStream.writeUTF(request);
+        String response = serverInputStream.readUTF();
+        if (!response.equals("Success")) {
+            return null;
+        } else {
+            User newUser = requestUser(user.getLogin(), user.getPassword());
+            return newUser;
+        }
+    }
 }

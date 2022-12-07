@@ -40,17 +40,21 @@ public class LoginController implements Controller {
 
     @FXML
     void continueButtonTapped(ActionEvent event) throws IOException {
-        logoImage.setVisible(false);
-        progressIndicator.setVisible(true);
-        user = networkManager.requestUser(loginTextField.getText(), passwordTextField.getText());
-        if (user != null) {
-            user.setPassword(passwordTextField.getText());
-            Stage window = (Stage) continueButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenuPackage/MainMenuViewDescription.fxml"));
-            loader.setController(new MainMenuController(networkManager, user));
-            Scene scene = new Scene(loader.load());
-            window.setTitle("Главное меню");
-            window.setScene(scene);
+        if (loginTextField.getText().equals("") || passwordTextField.getText().equals("")) {
+            showFailAlert("Введены не все поля!");
+        } else {
+            logoImage.setVisible(false);
+            progressIndicator.setVisible(true);
+            user = networkManager.requestUser(loginTextField.getText(), passwordTextField.getText());
+            if (user != null) {
+                user.setPassword(passwordTextField.getText());
+                Stage window = (Stage) continueButton.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenuPackage/MainMenuViewDescription.fxml"));
+                loader.setController(new MainMenuController(networkManager, user));
+                Scene scene = new Scene(loader.load());
+                window.setTitle("Главное меню");
+                window.setScene(scene);
+            }
         }
     }
     @FXML
