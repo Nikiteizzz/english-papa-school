@@ -30,7 +30,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="500.0" layoutY="170.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="280.0" style="-fx-border-color: black; -fx-background-color: light; -fx-border-radius: 15;" text="Ученики">
+      <Button layoutX="500.0" layoutY="170.0" mnemonicParsing="false" onAction="#showStudents" prefHeight="70.0" prefWidth="280.0" style="-fx-border-color: black; -fx-background-color: light; -fx-border-radius: 15;" text="Ученики">
          <font>
             <Font size="20.0" />
          </font>
@@ -73,5 +73,15 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <Button fx:id="addLessonsButton" layoutX="500.0" layoutY="330.0" mnemonicParsing="false" onAction="#addLessons" prefHeight="70.0" prefWidth="280.0" style="-fx-border-color: black; -fx-background-color: light; -fx-border-radius: 15;" text="Добавить занятие" visible="false">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="inviteCodesButton" layoutX="500.0" layoutY="409.0" mnemonicParsing="false" onAction="#showInviteCodes" prefHeight="70.0" prefWidth="280.0" style="-fx-border-color: black; -fx-background-color: light; -fx-border-radius: 15;" text="Инвайт коды" visible="false">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package TimetablePackage;
 
 import DataManagers.NetworkManager;
+import Interfaces.Controller;
 import MainMenuPackage.MainMenuController;
 import Models.Lesson;
 import Models.User;
@@ -22,7 +23,7 @@ import java.net.URL;
 import java.sql.Time;
 import java.util.ResourceBundle;
 
-public class TimetableController implements Initializable {
+public class TimetableController implements Initializable, Controller {
     User user;
     NetworkManager networkManager;
     public TableView<Lesson> timeTable;

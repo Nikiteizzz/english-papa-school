@@ -7,6 +7,7 @@ import Models.Lesson;
 import Models.User;
 import RegisterPackage.RegisterController;
 import SettingsMenuPackage.SettingsMenuController;
+import StudentsPackage.StudentsController;
 import TimetablePackage.TimetableController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,6 +32,8 @@ public class MainMenuController implements Controller, Initializable {
     User user;
     NetworkManager networkManager;
     public Label userInfoLabel;
+    public Button inviteCodesButton;
+    public Button addLessonsButton;
     public TableView<Lesson> lessonsTable;
     public TableColumn<Lesson, Long> numberColumn;
     public TableColumn<Lesson, String> lessonColumn;
@@ -66,6 +70,23 @@ public class MainMenuController implements Controller, Initializable {
         window.setTitle("Расписание");
         window.setScene(scene);
     }
+
+    public void showStudents(ActionEvent actionEvent) throws IOException {
+        Stage window = (Stage) userInfoLabel.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("StudentsPackage/StudentsViewDescription.fxml"));
+        loader.setController(new StudentsController(networkManager, user));
+        Scene scene = new Scene(loader.load());
+        window.setTitle("Расписание");
+        window.setScene(scene);
+    }
+
+    public void addLessons(ActionEvent actionEvent) {
+
+    }
+
+    public void showInviteCodes(ActionEvent actionEvent) {
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -79,6 +100,10 @@ public class MainMenuController implements Controller, Initializable {
             lessonsTable.setItems(lessons);
         } catch (Exception e) {
             showFailAlert(e.getLocalizedMessage());
+        }
+        if (user.getAdmin()) {
+            inviteCodesButton.setVisible(true);
+            addLessonsButton.setVisible(true);
         }
     }
 }

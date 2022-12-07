@@ -2,6 +2,7 @@ package DataManagers;
 
 import Interfaces.Controller;
 import Models.Lesson;
+import Models.Student;
 import Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -120,10 +121,28 @@ public class NetworkManager {
         serverOutputStream.writeUTF(request);
         String response = serverInputStream.readUTF();
         if (!response.equals("Success")) {
+            controller.showFailAlert(response);
             return null;
         } else {
             User newUser = requestUser(user.getLogin(), user.getPassword());
             return newUser;
         }
+    }
+
+    public ObservableList<Student> requestStudents() throws IOException, ParseException {
+        String request = "get@students";
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        serverOutputStream.writeUTF(request);
+        String result = serverInputStream.readUTF();
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(result);
+        JSONArray jsonArray = (JSONArray) jsonObject.get("students");
+        Student student;
+        for (Object jsonObj: jsonArray) {
+            student = new Student();
+            student.fromJsonString(jsonObj.toString());
+            students.add(student);
+        }
+        return students;
     }
 }
