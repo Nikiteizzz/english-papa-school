@@ -101,9 +101,13 @@ public class User implements Model {
         object.put("name", this.name);
         object.put("surname", this.surname);
         object.put("id", this.id);
-        object.put("password", this.password);
+        object.put("password", getCodedPassword(this.password));
         object.put("role", this.role);
         object.put("isAdmin", this.isAdmin);
         return object;
+    }
+
+    private String getCodedPassword(String password) {
+        return String.valueOf(password.hashCode());
     }
 }

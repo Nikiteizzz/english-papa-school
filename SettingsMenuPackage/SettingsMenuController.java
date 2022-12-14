@@ -1,7 +1,8 @@
 package SettingsMenuPackage;
 
+import Coordinator.MainCoordinator;
 import DataManagers.NetworkManager;
-import Interfaces.Controller;
+import Interfaces.ViewController;
 import MainMenuPackage.MainMenuController;
 import Models.User;
 import javafx.event.ActionEvent;
@@ -17,27 +18,27 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SettingsMenuController implements Controller, Initializable {
+public class SettingsMenuController implements Initializable, ViewController  {
+    User user;
+    NetworkManager networkManager;
+    MainCoordinator coordinator;
     public PasswordField passwordField;
     public TextField nameTextField;
     public TextField surnameTextField;
     public TextField statusTextField;
     public TextField loginTextField;
     public Button saveButton;
-    User user;
-    NetworkManager networkManager;
-    public SettingsMenuController(User user, NetworkManager networkManager) {
+    public SettingsMenuController(User user, NetworkManager networkManager, MainCoordinator mainCoordinator) {
         this.user = user;
         this.networkManager = networkManager;
+        this.coordinator = mainCoordinator;
+        networkManager.setController(this);
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
         Stage window = (Stage) passwordField.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenuPackage/MainMenuViewDescription.fxml"));
-        loader.setController(new MainMenuController(networkManager, user));
-        Scene scene = new Scene(loader.load());
-        window.setTitle("Главное меню");
-        window.setScene(scene);
+        coordinator.setUser(user);
+        coordinator.goToMainPage(window);
     }
 
     public void saveChanges(ActionEvent actionEvent) {

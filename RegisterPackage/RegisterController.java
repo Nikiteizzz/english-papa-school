@@ -1,7 +1,8 @@
 package RegisterPackage;
 
+import Coordinator.MainCoordinator;
 import DataManagers.NetworkManager;
-import Interfaces.Controller;
+import Interfaces.ViewController;
 import LoginingPackage.LoginController;
 import MainMenuPackage.MainMenuController;
 import Models.User;
@@ -14,11 +15,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class RegisterController implements Controller {
+public class RegisterController implements ViewController {
+    NetworkManager networkManager;
+    MainCoordinator coordinator;
     public TextField nameTextField;
     public TextField surnameTextField;
     public TextField statusTextField;
-    NetworkManager networkManager;
     @FXML
     TextField passwordTextField;
     @FXML
@@ -26,21 +28,18 @@ public class RegisterController implements Controller {
     @FXML
     TextField inviteCodeTextField;
 
-    public RegisterController(NetworkManager networkManager) {
+    public RegisterController(NetworkManager networkManager, MainCoordinator coordinator) {
         this.networkManager = networkManager;
+        this.coordinator = coordinator;
         networkManager.setController(this);
     }
     @FXML
     public void cancelRegistration(ActionEvent event) throws IOException {
         Stage window = (Stage) passwordTextField.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoginingPackage/LoginViewDescription.fxml"));
-        loader.setController(new LoginController(networkManager));
-        Scene scene = new Scene(loader.load());
-        window.setTitle("Авторизация");
-        window.setScene(scene);
+        coordinator.goToLoginPage(window);
     }
     @FXML
-    public void tryToRegister(ActionEvent event) throws IOException {
+    public void tryToRegister(ActionEvent event) throws IOException, ClassNotFoundException {
         if (isAllFieldsFilled()) {
             User user = new User();
             user.setLogin(loginTextField.getText());
@@ -52,11 +51,8 @@ public class RegisterController implements Controller {
             if (newUser != null) {
                 showSuccessAlert("Регистрация прошла успешно!");
                 Stage window = (Stage) loginTextField.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenuPackage/MainMenuViewDescription.fxml"));
-                loader.setController(new MainMenuController(networkManager, user));
-                Scene scene = new Scene(loader.load());
-                window.setTitle("Главное меню");
-                window.setScene(scene);
+                coordinator.setUser(newUser);
+                coordinator.goToMainPage(window);
             } else {
                 showFailAlert("Во время регистрации произошла ошибка!");
             }

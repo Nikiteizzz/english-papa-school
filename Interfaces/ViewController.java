@@ -1,9 +1,11 @@
 package Interfaces;
 
+import Coordinator.MainCoordinator;
 import javafx.scene.control.Alert;
 
-public interface Controller {
+public interface ViewController {
     default void showFailAlert(String message) {
+        MainCoordinator coordinator;
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Ошибка!");
         alert.setHeaderText("");

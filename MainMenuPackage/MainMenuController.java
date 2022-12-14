@@ -1,11 +1,11 @@
 package MainMenuPackage;
 
+import Coordinator.MainCoordinator;
 import DataManagers.NetworkManager;
-import Interfaces.Controller;
+import Interfaces.ViewController;
 import LoginingPackage.LoginController;
 import Models.Lesson;
 import Models.User;
-import RegisterPackage.RegisterController;
 import SettingsMenuPackage.SettingsMenuController;
 import StudentsPackage.StudentsController;
 import TimetablePackage.TimetableController;
@@ -22,15 +22,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenuController implements Controller, Initializable {
+public class MainMenuController implements Initializable, ViewController {
     User user;
     NetworkManager networkManager;
+    MainCoordinator coordinator;
     public Label userInfoLabel;
     public Button inviteCodesButton;
     public Button addLessonsButton;
@@ -40,52 +40,42 @@ public class MainMenuController implements Controller, Initializable {
     public TableColumn<Lesson, Long> groupColumn;
     public TableColumn<Lesson, Long> cabinetColumn;
     ObservableList<Lesson> lessons = FXCollections.observableArrayList();
-    public MainMenuController(NetworkManager networkManager, User user) {
+    public MainMenuController(NetworkManager networkManager, User user, MainCoordinator coordinator) {
         this.networkManager = networkManager;
         this.user = user;
+        this.coordinator = coordinator;
         networkManager.setController(this);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
         Stage window = (Stage) userInfoLabel.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoginingPackage/LoginViewDescription.fxml"));
-        loader.setController(new LoginController(networkManager));
-        Scene scene = new Scene(loader.load());
-        window.setTitle("Авторизация");
-        window.setScene(scene);
+        coordinator.goToLoginPage(window);
     }
     public void goToSettings(ActionEvent actionEvent) throws IOException {
         Stage window = (Stage) userInfoLabel.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SettingsMenuPackage/SettingsMenuViewDescription.fxml"));
-        loader.setController(new SettingsMenuController(user, networkManager));
-        Scene scene = new Scene(loader.load());
-        window.setTitle("Настройки");
-        window.setScene(scene);
+        coordinator.setUser(user);
+        coordinator.goToSettingsPage(window);
     }
     public void goToTimetable(ActionEvent actionEvent) throws IOException {
         Stage window = (Stage) userInfoLabel.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("TimetablePackage/TimetableViewDescription.fxml"));
-        loader.setController(new TimetableController(user, networkManager));
-        Scene scene = new Scene(loader.load());
-        window.setTitle("Расписание");
-        window.setScene(scene);
+        coordinator.setUser(user);
+        coordinator.goToTimetable(window);
     }
 
     public void showStudents(ActionEvent actionEvent) throws IOException {
         Stage window = (Stage) userInfoLabel.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("StudentsPackage/StudentsViewDescription.fxml"));
-        loader.setController(new StudentsController(networkManager, user));
-        Scene scene = new Scene(loader.load());
-        window.setTitle("Расписание");
-        window.setScene(scene);
+        coordinator.setUser(user);
+        coordinator.goToStudentsPage(window);
     }
 
     public void addLessons(ActionEvent actionEvent) {
 
     }
 
-    public void showInviteCodes(ActionEvent actionEvent) {
-
+    public void showInviteCodes(ActionEvent actionEvent) throws IOException {
+        Stage window = (Stage) userInfoLabel.getScene().getWindow();
+        coordinator.setUser(user);
+        coordinator.goToInviteCodes(window);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
