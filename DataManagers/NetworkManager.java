@@ -184,4 +184,47 @@ public class NetworkManager {
             return false;
         }
     }
+
+    public ObservableList<User> requestUsers() throws IOException, ClassNotFoundException, ParseException {
+        String request = "get@users";
+        serverOutputStream.writeObject(request);
+        String response = (String) serverInputStream.readObject();
+        ObservableList<User> users = FXCollections.observableArrayList();
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(response);
+        JSONArray jsonArray = (JSONArray) jsonObject.get("users");
+        User user;
+        for (Object jsonObj: jsonArray) {
+            user = new User();
+            user.fromJsonString(jsonObj.toString());
+            users.add(user);
+        }
+        return users;
+    }
+
+    public boolean addLesson(Lesson lesson) throws IOException, ClassNotFoundException {
+        String request = "add@lesson@" + lesson.toJsonObject().toJSONString();
+        serverOutputStream.writeObject(request);
+        String response = (String) serverInputStream.readObject();
+        if (response.equals("Success")) {
+            viewController.showSuccessAlert("Успешно!");
+            return true;
+        } else {
+            viewController.showFailAlert(response);
+            return false;
+        }
+    }
+
+    public boolean deleteLesson(long lessonId) throws IOException, ClassNotFoundException {
+        String request = "delete@lesson@" + lessonId;
+        serverOutputStream.writeObject(request);
+        String response = (String) serverInputStream.readObject();
+        if (response.equals("Success")) {
+            viewController.showSuccessAlert("Успешно!");
+            return true;
+        } else {
+            viewController.showFailAlert(response);
+            return false;
+        }
+    }
 }

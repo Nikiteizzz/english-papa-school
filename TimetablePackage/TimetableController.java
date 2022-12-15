@@ -8,6 +8,8 @@ import Models.Lesson;
 import Models.User;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,12 +67,41 @@ public class TimetableController implements Initializable, ViewController {
         title.setSpacingAfter(32);
         document.add(title);
 
-        Paragraph name = new Paragraph(user.getSurname() + " " +user.getName(), new Font(fontTitle, 20));
-        name.setAlignment(Element.ALIGN_CENTER);
-        name.setSpacingAfter(32);
-        document.add(name);
+        Paragraph paragraphName = new Paragraph(user.getSurname() + " " +user.getName(), new Font(fontTitle, 20));
+        paragraphName.setAlignment(Element.ALIGN_CENTER);
+        paragraphName.setSpacingAfter(32);
+        document.add(paragraphName);
+
+        PdfPTable timetable = new PdfPTable(4);
+        PdfPCell lessonNumber = new PdfPCell(new Phrase("Номер урока", new Font(fontTitle, 15)));
+        lessonNumber.setHorizontalAlignment(Element.ALIGN_CENTER);
+        timetable.addCell(lessonNumber);
+
+        PdfPCell lessonName = new PdfPCell(new Phrase("Название", new Font(fontTitle, 15)));
+        lessonName.setHorizontalAlignment(Element.ALIGN_CENTER);
+        timetable.addCell(lessonName);
+
+        PdfPCell group = new PdfPCell(new Phrase("Группа", new Font(fontTitle, 15)));
+        group.setHorizontalAlignment(Element.ALIGN_CENTER);
+        timetable.addCell(group);
+
+        PdfPCell auditory = new PdfPCell(new Phrase("Аудитория", new Font(fontTitle, 15)));
+        auditory.setHorizontalAlignment(Element.ALIGN_CENTER);
+        timetable.addCell(auditory);
+
+        timetable.setHeaderRows(1);
+
+        for (Lesson element : lessonsList) {
+            timetable.addCell(new Paragraph(String.valueOf(element.getNumber()), new Font(fontTitle, 15)));
+            timetable.addCell(new Paragraph(element.getLessonName(), new Font(fontTitle, 15)));
+            timetable.addCell(new Paragraph(element.getGroup(), new Font(fontTitle, 15)));
+            timetable.addCell(new Paragraph(String.valueOf(element.getCabinet()), new Font(fontTitle, 15)));
+        }
+
+        document.add(timetable);
         document.close();
 
+        showSuccessAlert("Успешно сохранено в PDF!");
     }
 
     @Override
@@ -80,6 +111,7 @@ public class TimetableController implements Initializable, ViewController {
         groupColumn.setCellValueFactory(new PropertyValueFactory<>("group"));
         cabinetColumn.setCellValueFactory(new PropertyValueFactory<>("cabinet"));
         timeTable.setItems(lessonsList);
+
     }
 
     public void requestMonday(ActionEvent actionEvent) throws IOException, ParseException, ClassNotFoundException {
@@ -87,6 +119,8 @@ public class TimetableController implements Initializable, ViewController {
         printButton.setDisable(false);
         timeTable.setItems(lessonsList);
         dayOfWeekPicker.setText("Понедельник");
+        numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+        timeTable.getSortOrder().setAll(numberColumn);
         timeTable.refresh();
     }
 
@@ -95,6 +129,8 @@ public class TimetableController implements Initializable, ViewController {
         printButton.setDisable(false);
         timeTable.setItems(lessonsList);
         dayOfWeekPicker.setText("Вторник");
+        numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+        timeTable.getSortOrder().setAll(numberColumn);
         timeTable.refresh();
     }
 
@@ -103,6 +139,8 @@ public class TimetableController implements Initializable, ViewController {
         printButton.setDisable(false);
         timeTable.setItems(lessonsList);
         dayOfWeekPicker.setText("Среда");
+        numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+        timeTable.getSortOrder().setAll(numberColumn);
         timeTable.refresh();
     }
 
@@ -111,6 +149,8 @@ public class TimetableController implements Initializable, ViewController {
         printButton.setDisable(false);
         timeTable.setItems(lessonsList);
         dayOfWeekPicker.setText("Четверг");
+        numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+        timeTable.getSortOrder().setAll(numberColumn);
         timeTable.refresh();
     }
 
@@ -119,6 +159,8 @@ public class TimetableController implements Initializable, ViewController {
         printButton.setDisable(false);
         timeTable.setItems(lessonsList);
         dayOfWeekPicker.setText("Пятница");
+        numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+        timeTable.getSortOrder().setAll(numberColumn);
         timeTable.refresh();
     }
 
@@ -127,6 +169,8 @@ public class TimetableController implements Initializable, ViewController {
         printButton.setDisable(false);
         dayOfWeekPicker.setText("Суббота");
         timeTable.setItems(lessonsList);
+        numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+        timeTable.getSortOrder().setAll(numberColumn);
         timeTable.refresh();
     }
 }

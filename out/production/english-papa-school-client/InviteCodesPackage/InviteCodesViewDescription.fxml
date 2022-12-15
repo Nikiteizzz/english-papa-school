@@ -48,7 +48,6 @@
          </image>
       </ImageView>
       <Button fx:id="addButton" layoutX="605.0" layoutY="321.0" mnemonicParsing="false" onAction="#addNewCode" disable="true" prefHeight="37.0" prefWidth="138.0" text="Добавить" />
-      <Button fx:id ="changeButton" layoutX="81.0" layoutY="578.0" mnemonicParsing="false" onAction="#changeCode" prefHeight="37.0" prefWidth="138.0" text="Изменить" />
       <Button fx:id="deleteButton" layoutX="326.0" layoutY="578.0" mnemonicParsing="false" onAction="#deleteCode" prefHeight="37.0" prefWidth="138.0" text="Удалить" />
    </children>
 </AnchorPane>

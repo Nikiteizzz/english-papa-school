@@ -1,6 +1,7 @@
 package Coordinator;
 
 import DataManagers.NetworkManager;
+import EditLessonsPackage.EditLessonsController;
 import InviteCodesPackage.InviteCodesController;
 import LoginingPackage.LoginController;
 import MainMenuPackage.MainMenuController;
@@ -104,6 +105,14 @@ public class MainCoordinator extends Application {
     public void goToInviteCodes(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("InviteCodesPackage/InviteCodesViewDescription.fxml"));
         loader.setController(new InviteCodesController(networkManager, user, this));
+        Scene scene = new Scene(loader.load());
+        stage.setTitle("Инвайт коды");
+        stage.setScene(scene);
+    }
+
+    public void goToEditingLessons(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLessonsPackage/EditLessonsViewDescription.fxml"));
+        loader.setController(new EditLessonsController(networkManager, user, this));
         Scene scene = new Scene(loader.load());
         stage.setTitle("Инвайт коды");
         stage.setScene(scene);

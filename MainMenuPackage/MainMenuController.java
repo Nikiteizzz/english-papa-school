@@ -68,8 +68,10 @@ public class MainMenuController implements Initializable, ViewController {
         coordinator.goToStudentsPage(window);
     }
 
-    public void addLessons(ActionEvent actionEvent) {
-
+    public void addLessons(ActionEvent actionEvent) throws IOException {
+        Stage window = (Stage) userInfoLabel.getScene().getWindow();
+        coordinator.setUser(user);
+        coordinator.goToEditingLessons(window);
     }
 
     public void showInviteCodes(ActionEvent actionEvent) throws IOException {
@@ -88,6 +90,8 @@ public class MainMenuController implements Initializable, ViewController {
         try {
             lessons = networkManager.getLessons(user.getId());
             lessonsTable.setItems(lessons);
+            numberColumn.setSortType(TableColumn.SortType.ASCENDING);
+            lessonsTable.getSortOrder().setAll(numberColumn);
         } catch (Exception e) {
             showFailAlert(e.getLocalizedMessage());
         }
