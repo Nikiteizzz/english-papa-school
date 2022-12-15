@@ -11,12 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +25,9 @@ public class InviteCodesController implements ViewController, Initializable {
     NetworkManager networkManager;
     User user;
     MainCoordinator coordinator;
+    public Button addButton;
+    public Button changeButton;
+    public Button deleteButton;
     public TableView<InviteCode> codesTableView;
     public TableColumn<InviteCode, String> codeColumn;
     public TableColumn<InviteCode, Boolean> statusColumn;
@@ -47,8 +48,21 @@ public class InviteCodesController implements ViewController, Initializable {
         coordinator.goToMainPage(window);
     }
 
-    public void addNewCode(ActionEvent actionEvent) {
-
+    public void addNewCode(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        boolean isSuccess = networkManager.addInviteCode(codeTextField.getText(), adminCheckBox.isSelected());
+        new Thread(() -> {
+            try {
+                if (isSuccess)
+                    inviteCodes = networkManager.requestInviteCodes();
+                Platform.runLater(() -> {
+                    codesTableView.setItems(inviteCodes);
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showFailAlert("Ошибка получения списка инвайт-кодов");
+                });
+            }
+        }).start();
     }
 
     public void generateCode(ActionEvent actionEvent) {
@@ -62,10 +76,27 @@ public class InviteCodesController implements ViewController, Initializable {
             }
         }
         codeTextField.setText(code);
+        addButton.setDisable(false);
     }
 
-    public void deleteCode(ActionEvent actionEvent) {
-
+    public void deleteCode(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        if (codesTableView.getSelectionModel().getSelectedItem() != null) {
+            InviteCode selected = codesTableView.getSelectionModel().getSelectedItem();
+            boolean isSuccess = networkManager.deleteInviteCode(selected.getInviteCode());
+            new Thread(() -> {
+                try {
+                    if (isSuccess)
+                        inviteCodes = networkManager.requestInviteCodes();
+                    Platform.runLater(() -> {
+                        codesTableView.setItems(inviteCodes);
+                    });
+                } catch (Exception e) {
+                    Platform.runLater(() -> {
+                        showFailAlert("Ошибка получения списка инвайт-кодов");
+                    });
+                }
+            }).start();
+        }
     }
 
     public void changeCode(ActionEvent actionEvent) {

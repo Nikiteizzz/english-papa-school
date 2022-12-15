@@ -47,11 +47,12 @@ public class RegisterController implements ViewController {
             user.setName(nameTextField.getText());
             user.setSurname(surnameTextField.getText());
             user.setRole(statusTextField.getText());
-            User newUser = networkManager.requestRegistration(user, inviteCodeTextField.getText());
-            if (newUser != null) {
-                showSuccessAlert("Регистрация прошла успешно!");
+            boolean isSuccess = networkManager.requestRegistration(user, inviteCodeTextField.getText());
+            if (isSuccess) {
+                user = networkManager.requestUser(loginTextField.getText(), passwordTextField.getText());
                 Stage window = (Stage) loginTextField.getScene().getWindow();
-                coordinator.setUser(newUser);
+                networkManager.deleteInviteCode(inviteCodeTextField.getText());
+                coordinator.setUser(user);
                 coordinator.goToMainPage(window);
             } else {
                 showFailAlert("Во время регистрации произошла ошибка!");

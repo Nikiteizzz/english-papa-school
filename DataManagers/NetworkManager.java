@@ -113,16 +113,16 @@ public class NetworkManager {
         }
     }
 
-    public User requestRegistration(User user, String inviteCode) throws IOException, ClassNotFoundException {
+    public boolean requestRegistration(User user, String inviteCode) throws IOException, ClassNotFoundException {
         String request = "registration@" + user.toJsonObject().toJSONString() + "@" + inviteCode;
         serverOutputStream.writeObject(request);
         String result = (String)serverInputStream.readObject();
         if (!result.equals("Success")) {
             viewController.showFailAlert(result);
-            return null;
+            return false;
         } else {
-            User newUser = requestUser(user.getLogin(), user.getPassword());
-            return newUser;
+            viewController.showSuccessAlert("Регистрация прошла успешно!");
+            return true;
         }
     }
     public ObservableList<Student> requestStudents() throws IOException, ParseException, ClassNotFoundException {
@@ -159,15 +159,29 @@ public class NetworkManager {
         return inviteCodes;
     }
 
-    public String deleteInviteCode(long codeId) throws IOException, ClassNotFoundException {
-        String request = "delete@invite_code@" + codeId;
+    public boolean deleteInviteCode(String code) throws IOException, ClassNotFoundException {
+        String request = "delete@invite_code@" + code;
         serverOutputStream.writeObject(request);
         String response = (String) serverInputStream.readObject();
         if (response.equals("Success")) {
             viewController.showSuccessAlert("Успешно!");
+            return true;
         } else {
             viewController.showFailAlert(response);
+            return false;
         }
-        return response;
+    }
+
+    public boolean addInviteCode(String inviteCode, boolean status) throws IOException, ClassNotFoundException {
+        String request = "add@invite_code@" + inviteCode + "@" + status;
+        serverOutputStream.writeObject(request);
+        String response = (String) serverInputStream.readObject();
+        if (response.equals("Success")) {
+            viewController.showSuccessAlert("Успешно!");
+            return true;
+        } else {
+            viewController.showFailAlert(response);
+            return false;
+        }
     }
 }

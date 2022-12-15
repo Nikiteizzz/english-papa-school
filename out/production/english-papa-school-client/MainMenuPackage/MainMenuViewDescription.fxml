@@ -73,7 +73,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="addLessonsButton" layoutX="500.0" layoutY="330.0" mnemonicParsing="false" onAction="#addLessons" prefHeight="70.0" prefWidth="280.0" style="-fx-border-color: black; -fx-background-color: light; -fx-border-radius: 15;" text="Добавить занятие" visible="false">
+      <Button fx:id="addLessonsButton" layoutX="500.0" layoutY="330.0" mnemonicParsing="false" onAction="#addLessons" prefHeight="70.0" prefWidth="280.0" style="-fx-border-color: black; -fx-background-color: light; -fx-border-radius: 15;" text="Изменить расписание" visible="false">
          <font>
             <Font size="20.0" />
          </font>

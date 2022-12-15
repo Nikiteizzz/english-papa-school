@@ -24,7 +24,7 @@
             <Font size="25.0" />
          </font>
       </TextArea>
-      <TableView fx:id="timeTable" layoutX="56.0" layoutY="206.0" prefHeight="445.0" prefWidth="394.0">
+      <TableView fx:id="timeTable" layoutX="56.0" layoutY="206.0" prefHeight="360.0" prefWidth="394.0">
         <columns>
           <TableColumn fx:id="numberColumn" prefWidth="65.19813537597656" text="Номер" />
           <TableColumn fx:id="nameColumn" prefWidth="139.25234985351562" text="Название" />
@@ -57,5 +57,6 @@
             <Font size="30.0" />
          </font>
       </Button>
+      <Button fx:id="printButton" layoutX="169.0" layoutY="580.0" disable="true" mnemonicParsing="false" onAction="#toPDFFile" prefHeight="47.0" prefWidth="182.0" text="В PDF файл" />
    </children>
 </AnchorPane>
